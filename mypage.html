@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하이콩</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: auto;
+            color: black;
+            font-family: "Avenir Next", "Avenir", sans-serif;
+        }
+
+        #menuToggle {
+            display: block;
+            position: relative;
+            top: 50px;
+            left: 50px;
+            z-index: 1;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        #menuToggle a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        #menuToggle a:hover {
+            color: black;
+        }
+
+        #menuToggle input {
+            display: block;
+            width: 40px;
+            height: 32px;
+            position: absolute;
+            top: -7px;
+            left: -5px;
+            cursor: pointer;
+            opacity: 0;
+            z-index: 2;
+            -webkit-touch-callout: none;
+        }
+
+        #menuToggle span {
+            display: block;
+            width: 33px;
+            height: 4px;
+            margin-bottom: 5px;
+            position: relative;
+            background: black;
+            border-radius: 3px;
+            z-index: 1;
+            transform-origin: 4px 0px;
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                opacity 0.55s ease;
+        }
+
+        #menuToggle span:first-child {
+            transform-origin: 0% 0%;
+        }
+
+        #menuToggle span:nth-last-child(2) {
+            transform-origin: 0% 100%;
+        }
+
+        #menuToggle input:checked~span {
+            opacity: 1;
+            transform: rotate(45deg) translate(-2px, -1px);
+        }
+
+        #menuToggle input:checked~span:nth-last-child(3) {
+            opacity: 0;
+            transform: rotate(0deg) scale(0.2, 0.2);
+        }
+
+        #menuToggle input:checked~span:nth-last-child(2) {
+            transform: rotate(-45deg) translate(0, -1px);
+        }
+
+        #menu {
+            position: absolute;
+            width: 300px;
+            margin: -100px 0 0 -50px;
+            padding: 50px;
+            padding-top: 125px;
+            list-style-type: none;
+            -webkit-font-smoothing: antialiased;
+            transform-origin: 0% 0%;
+            transform: translate(-100%, 0);
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        }
+
+        #menu li {
+            padding: 10px 0;
+            font-size: 22px;
+        }
+
+        #menuToggle input:checked~ul {
+            transform: none;
+        }
+
+        a span {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            margin-left: -12px;
+            border-left: 3px solid #000000;
+            border-bottom: 3px solid #000000;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            -webkit-animation: sdb 2s infinite;
+            animation: sdb 2s infinite;
+            opacity: 0;
+            box-sizing: border-box;
+            margin-top: 10%;
+        }
+
+        a span:nth-of-type(1) {
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+        }
+
+        a span:nth-of-type(2) {
+            top: 16px;
+            -webkit-animation-delay: .15s;
+            animation-delay: .15s;
+        }
+
+        a span:nth-of-type(3) {
+            top: 32px;
+            -webkit-animation-delay: .3s;
+            animation-delay: .3s;
+        }
+
+        @-webkit-keyframes sdb {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes sdb {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        nav {
+            height: 0;
+        }
+
+        .scroll-container {
+            width: 100%;
+            height: 1500px;
+            font-size: 25px;
+            font-weight: bolder;
+            text-align: center;
+            background-image: url(./css/images/image/snow.jpg);
+        }
+
+        .scroll-area {
+            scroll-snap-align: start;
+        }
+
+        .Introduction {
+            text-align: center;
+            font-size: 50px;
+        }
+
+        .skill {
+            font-size: 50px;
+            font-weight: bolder;
+            text-align: center;
+        }
+
+        .contact {
+            font-size: 50px;
+            text-align: center;
+        }
+
+        .btn-12 {
+            position: relative;
+            right: 20px;
+            bottom: 20px;
+            border: none;
+            box-shadow: none;
+            width: 130px;
+            height: 40px;
+            line-height: 42px;
+            -webkit-perspective: 230px;
+            perspective: 230px;
+        }
+
+        .btn-12 span {
+            background: rgb(0, 0, 0);
+            background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+            display: block;
+            position: absolute;
+            width: 200px;
+            height: 50px;
+            border-radius: 5px;
+            margin: 0;
+            text-align: center;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            font-size: 20px;
+            color: white;
+        }
+
+        .btn-12 span:nth-child(1) {
+            box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.6), -4px -4px 5px 0px rgba(255, 255, 255, 0.6), 7px 7px 20px 0px rgba(255, 255, 255, 0.133), 4px 4px 5px 0px #0001;
+            -webkit-transform: rotateX(90deg);
+            -moz-transform: rotateX(90deg);
+            transform: rotateX(90deg);
+            -webkit-transform-origin: 50% 50% -20px;
+            -moz-transform-origin: 50% 50% -20px;
+            transform-origin: 50% 50% -20px;
+        }
+
+        .btn-12 span:nth-child(2) {
+            -webkit-transform: rotateX(0deg);
+            -moz-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+            -webkit-transform-origin: 50% 50% -20px;
+            -moz-transform-origin: 50% 50% -20px;
+            transform-origin: 50% 50% -20px;
+        }
+
+        .btn-12:hover span:nth-child(1) {
+            box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5), 7px 7px 20px 0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+            -webkit-transform: rotateX(0deg);
+            -moz-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+        }
+
+        .btn-12:hover span:nth-child(2) {
+            box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5), 7px 7px 20px 0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+            color: transparent;
+            -webkit-transform: rotateX(-90deg);
+            -moz-transform: rotateX(-90deg);
+            transform: rotateX(-90deg);
+        }
+
+        
+
+        /* Circular images */
+        .circular-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Black and white image effect */
+        .circular-image img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%);
+            transition: filter 0.5s ease;
+        }
+
+        /* Revert the black and white effect on hover */
+        .circular-image:hover img {
+            filter: grayscale(0%);
+        }
+    </style>
+</head>
+<body>
+<nav id="top" role="navigation" style="margin-right: 50px;">
+    <div id="menuToggle">
+        <input type="checkbox" />
+        <i class="fas fa-bars"></i>
+        <span></span>
+        <span></span>
+        <span></span>
+        <ul id="menu">
+            <a href="#home"><li>Introduction</li></a>
+            <a href="#Introduction"><li>Wanna Be</li></a>
+            <a href="#skill"><li>Skill</li></a>
+            <a href="#contact"><li>Contact</li></a>
+        </ul>
+    </div>
+</nav>
+<div class="scroll-container" style="background-image:url(./css/images/image/snow.jpg);">
+    <div id="home" class="scroll-area" style="width: 100%; height:1500px; position: absolute; left: 0px; top: 1500px;";>Introduction
+        <div class="Introduction"></div>
+        <div class="circular-image" style="margin-top: 20px;position: absolute; left: 5%;top: 5%;"><img src="./css/kid-ezgif.com-video-to-gif-converter.gif"></div>
+        <div style="position: absolute; left: 30%; top: 15%;">김건민 25살 (구) 경기도 시흥 (현 대림)</div>
+        <div class="circular-image" style="margin-top: 20px; position: absolute; left: 5%; top: 30%;"><img src="./css/snow1-ezgif.com-video-to-gif-converter.gif"></div>
+        <div style="position: absolute; left: 30%; top: 37%;">Job : 홈프로텍터  </div>
+        <div style="position: absolute; left: 30%; top: 45%;">Hobby : 누워있기  </div>
+        <div class="circular-image" style="margin-top: 20px;position: absolute; left: 5%; top :55%;"><img src="./css/punch-ezgif.com-video-to-gif-converter.gif"></div>
+        <div style="position: absolute; left: 30%; top: 63%;">빼이보릿 : HTML/CSS</div>
+        <div style="position: absolute; left: 30%; top: 70%;">극혐: JAVA DB JDBC JSP</div>
+    </div>
+    <div id="Introduction" class="scroll-area" style="width: 100%; height:1500px; position: absolute; left: 0px; top: 3000px;">Wanna Be
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+        <div><img src="./css/다운로드.png" style="position: absolute; top: 5%; left: 33%; width: 30%;" alt=""></div>
+    <div><img src="./css/share.jpg" style="position: absolute; top: 30%; left: 25%;width: 50%;" alt=""></div>
+    <div><img src="./css/netmarble.jpg" style="position: absolute; top: 75%; left: 35%; width: 30%;"></div>
+    </div>
+    <div id="skill" class="scroll-area" style="width: 100%;height:1000px; position: absolute; left: 0px; top:4500px; font-size: larger;" >Skill
+    <div style="width: 300px; height: 200px; position:absolute; left: 44.5%; top: 30%;"><img src="./css/images/x.jpg"style width="300px"></div>
+</div>
+    <div id="contact" class="scroll-area" style="width: 100%;height:1000px; position: absolute; left: 0px; top:5500px;">Contact
+        <div style="position: absolute; top: 25%; left: 10%;" class="sns"><button class="custom-btn btn-12"><span>01093570755</span><span>Phone</span></button> </div>
+        <div style="position: absolute; top: 25%;  left: 20%;" ><button class="custom-btn btn-12"><span>kxx0916@naver.com</span><span>E-mail</span></button> </div>
+        <div style="position: absolute; top: 25%;  left: 30%" ><button class="custom-btn btn-12"><span>X</span><span>Instargram</span></button> </div>
+        <div style="position: absolute; top: 25%;  left: 40%;" ><button class="custom-btn btn-12"><span>X</span><span>Facebook</span></button> </div>
+        <div style="position: absolute; top: 25%;  left: 50%" ><button class="custom-btn btn-12"><span>X</span><span>Cyworld</span></button> </div>
+        <div style="position: absolute; top: 25%;  left: 60%" ><button class="custom-btn btn-12"><span>X</span><span>Twitter</span></button> </div>
+        <div style="position: absolute; top: 25%;  left: 70%" ><button class="custom-btn btn-12"><span>X</span><span>Youtube</span></button> </div>
+        <div style="position: absolute; top: 25%;  left: 80%" ><button class="custom-btn btn-12"><span>X</span><span>GitHub</span></button> </div>
+        <div style="width: 100%; position: absolute; bottom: 10%;">Thank You!</div>
+    </div>
+</div>
+<!-- Scroll to top button -->
+<a href="#" class="scroll-top-button">
+    <i class="fas fa-arrow-up"></i>
+</a>
+<script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Scroll to top button functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        var scrollTopButton = document.querySelector('.scroll-top-button');
+
+        // Show or hide the button based on scroll position
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                scrollTopButton.style.display = 'flex';
+            } else {
+                scrollTopButton.style.display = 'none';
+            }
+        });
+
+        // Scroll to top when the button is clicked
+        scrollTopButton.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+<a href="#"><span></span><span></span><span></span></a>
+<style>
+    a {
+  padding-top: 80px;
+}
+a span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: sdb 2s infinite;
+  animation: sdb 2s infinite;
+  opacity: 0;
+  box-sizing: border-box;
+}
+a span:nth-of-type(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+a span:nth-of-type(2) {
+  top: 16px;
+  -webkit-animation-delay: .15s;
+  animation-delay: .15s;
+}
+a span:nth-of-type(3) {
+  top: 32px;
+  -webkit-animation-delay: .3s;
+  animation-delay: .3s;
+}
+@-webkit-keyframes sdb {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sdb {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .scroll-to-top {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        text-align: center;
+        line-height: 50px;
+        z-index: 1000;
+        transition: opacity 0.3s, visibility 0.3s;
+    }
+    .scroll-to-top.show {
+        opacity: 1;
+        visibility: visible;
+    }
+</style>
+</head>
+<body>
+
+<!-- Content -->
+<div style="height: 2000px;">
+    <!-- Add enough content to enable scrolling -->
+</div>
+
+<!-- Scroll to top button -->
+<button class="scroll-to-top" onclick="scrollToTop()">Top</button>
+
+<script>
+    // Show/hide scroll to top button based on scroll position
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        var scrollToTopBtn = document.querySelector('.scroll-to-top');
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    }
+
+    // Smooth scroll to top function
+    function scrollToTop() {
+        var currentPosition = document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentPosition > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            window.scrollTo(0, currentPosition - currentPosition / 8);
+        }
+    }
+</script>
+<button onclick="backToTop()" id="btn-back-to-top" title="위로 가기">Top</button>
+<style>
+    #btn-back-to-top {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 9999;
+  border: none;
+  outline: none;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+#btn-back-to-top:hover {
+  background-color: #ffffff;
+  color: black;
+}
+</style>
+<script>
+    // 스크롤 이벤트 리스너
+window.addEventListener('scroll', () => {
+  // 스크롤 위치가 100px 이상일 때 위로 가기 버튼을 보이게 함
+  if (
+    document.body.scrollTop > 100 ||
+    document.documentElement.scrollTop > 20
+  ) {
+    document.getElementById('btn-back-to-top').style.display = 'block';
+  } else {
+    document.getElementById('btn-back-to-top').style.display = 'none';
+  }
+});
+
+// 클릭 시 페이지 맨 위로 스크롤 (애니메이션 효과 추가)
+function backToTop() {
+  const position =
+    document.documentElement.scrollTop || document.body.scrollTop;
+  if (position) {
+    window.requestAnimationFrame(() => {
+      window.scrollTo(0, position - position / 10);
+      backToTop();
+    });
+  }
+}
+</script>
+</body>
+</html>
